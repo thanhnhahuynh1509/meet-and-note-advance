@@ -1,0 +1,9 @@
+#workspace {
+    overflow: auto;
+    flex-grow: 1;
+}
+
+#workspace-content {
+    width: 100px;
+    height: 200px;
+}

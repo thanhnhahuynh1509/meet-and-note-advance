@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./styles/index.css";
 
 const el = document.getElementById("root");
 
-createRoot(el).render(<h1>Hello World!</h1>);
+createRoot(el).render(<App />);
