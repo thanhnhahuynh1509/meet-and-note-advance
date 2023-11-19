@@ -10,7 +10,7 @@ function ScrollContainer({ children, width, height }) {
   const [initialScrollY, setInitialScrollY] = useState(0);
 
   const handleMouseDown = (e) => {
-    if (!e.target.className.includes("draggable-component")) {
+    if (e.target.className.includes("scroll")) {
       setIsDragging(true);
       setInitialMouseX(e.pageX - scrollContainerRef.current.offsetLeft);
       setInitialMouseY(e.pageY - scrollContainerRef.current.offsetTop);
@@ -22,7 +22,7 @@ function ScrollContainer({ children, width, height }) {
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    if (!e.target.className.includes("draggable-component")) {
+    if (e.target.className.includes("scroll")) {
       const currentMouseX = e.pageX - scrollContainerRef.current.offsetLeft;
       const currentMouseY = e.pageY - scrollContainerRef.current.offsetTop;
       const walkX = currentMouseX - initialMouseX;
