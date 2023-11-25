@@ -1,5 +1,9 @@
 function RoomName() {
-  return <div contentEditable={true}>Room</div>;
+  return (
+    <div contentEditable suppressContentEditableWarning>
+      Room
+    </div>
+  );
 }
 
 export default RoomName;

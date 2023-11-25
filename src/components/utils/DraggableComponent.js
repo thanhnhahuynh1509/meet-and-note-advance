@@ -4,13 +4,17 @@ import "../../styles/components/utils/DraggableComponent.css";
 
 function DraggableComponent({
   children,
+  posX = 0,
+  posY = 0,
   onStart,
   onDrag,
   onStop,
   onMouseDown,
+  disable,
+  cancel,
 }) {
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [x, setX] = useState(posX);
+  const [y, setY] = useState(posY);
 
   return (
     <Draggable
@@ -43,8 +47,10 @@ function DraggableComponent({
           onStop(e, data);
         }
       }}
+      cancel={cancel}
+      disabled={disable}
     >
-      {children}
+      <div>{children}</div>
     </Draggable>
   );
 }
