@@ -1,21 +1,30 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ScrollContainer from "../../components/utils/ScrollContainer";
 import "../../styles/ui/main-page/Workspace.css";
+import { workspaceState, initSize } from "../../common/store";
 
 function Workspace() {
   const workspaceRef = useRef();
-  const [scrollWidth, setScrollWidth] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(0);
+  const workspace = useSelector(workspaceState);
+  const workspaceDispatch = useDispatch();
   const [resizeTrigger, setResizeTrigger] = useState(false);
-
   const handleResize = () => {
     setResizeTrigger((r) => !r);
   };
 
   useLayoutEffect(() => {
-    setScrollWidth(workspaceRef.current.offsetWidth);
-    setScrollHeight(workspaceRef.current.offsetHeight);
-  }, [resizeTrigger]);
+    const width = workspaceRef.current.offsetWidth;
+    const height = workspaceRef.current.offsetHeight;
+    workspaceDispatch(
+      initSize({
+        width: width,
+        height: height,
+        maxWidth: width,
+        maxHeight: height,
+      })
+    );
+  }, [resizeTrigger, workspaceDispatch]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -24,12 +33,22 @@ function Workspace() {
     };
   }, []);
 
+  const renderedComponents = workspace?.components?.map((component) => {
+    const {
+      default: Component,
+    } = require(`../../components/workspace/${component.type}`);
+    return (
+      <Component key={component.id} component={component}>
+        {component.content}
+      </Component>
+    );
+  });
+
   return (
     <div id="workspace" ref={workspaceRef}>
-      <ScrollContainer
-        width={scrollWidth}
-        height={scrollHeight}
-      ></ScrollContainer>
+      <ScrollContainer width={workspace.width} height={workspace.height}>
+        {renderedComponents}
+      </ScrollContainer>
     </div>
   );
 }

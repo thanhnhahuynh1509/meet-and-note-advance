@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Resize from "./resize.svg";
 
-function ResizeWrapper({ setWidth, setHeight, children }) {
+function ResizeWrapper({ onResize, onStop, children }) {
   const resizeRef = useRef();
 
   let mousePosition = { x: 0, y: 0 };
@@ -11,13 +11,17 @@ function ResizeWrapper({ setWidth, setHeight, children }) {
     const { left, top } = resizeRef.current.getBoundingClientRect();
     const deltaX = e.pageX - left - mousePosition.x;
     const deltaY = e.pageY - top - mousePosition.y;
-    setWidth((width) => width + deltaX);
-    setHeight((height) => height + deltaY);
+    if (onResize) {
+      onResize(e, { deltaX, deltaY });
+    }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e) => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
+    if (onStop) {
+      onStop(e);
+    }
   };
 
   const handleMouseDown = (e) => {
@@ -44,7 +48,12 @@ function ResizeWrapper({ setWidth, setHeight, children }) {
         onMouseDown={handleMouseDown}
       >
         <img
-          style={{ width: "20px", height: "20px", pointerEvents: "none" }}
+          style={{
+            width: "20px",
+            height: "20px",
+            pointerEvents: "none",
+            color: "red",
+          }}
           src={Resize}
           alt=""
         />

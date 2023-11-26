@@ -12,6 +12,7 @@ function DraggableComponent({
   onMouseDown,
   disable,
   cancel,
+  componentRef,
 }) {
   const [x, setX] = useState(posX);
   const [y, setY] = useState(posY);
@@ -50,7 +51,7 @@ function DraggableComponent({
       cancel={cancel}
       disabled={disable}
     >
-      <div>{children}</div>
+      <div ref={componentRef}>{children}</div>
     </Draggable>
   );
 }

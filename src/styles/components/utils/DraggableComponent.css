@@ -2,3 +2,11 @@
     position: absolute;
     display: inline-block;
 }
+
+.dragging-component {
+    cursor: grabbing;
+}
+
+.react-draggable-transparent-selection {
+    cursor: grabbing;
+}
