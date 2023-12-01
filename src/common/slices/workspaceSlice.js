@@ -43,6 +43,16 @@ const workspaceSlice = createSlice({
       };
     },
 
+    addComponent: (state, { payload }) => {
+      const duplicateComponent = state.components.find(
+        (c) => c.id === payload?.id
+      );
+      if (duplicateComponent) {
+        return;
+      }
+      state.components.push(payload);
+    },
+
     updateComponent: (state, action) => {
       return {
         ...state,
@@ -61,7 +71,6 @@ const workspaceSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addMatcher(isAnyOf(updateComponent), (state) => {
-      console.log("update");
       let maxCpWidth = state.maxWidth;
       let maxCpHeight = state.maxHeight;
       for (const component of state.components) {
@@ -83,7 +92,8 @@ const workspaceSlice = createSlice({
   },
 });
 
-export const { initSize, updateComponent } = workspaceSlice.actions;
+export const { initSize, updateComponent, addComponent } =
+  workspaceSlice.actions;
 export const workspaceState = (state) => state.workspace;
 
 export default workspaceSlice.reducer;

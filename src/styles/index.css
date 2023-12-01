@@ -118,3 +118,8 @@ h6 {
 .container {
   padding: 2.4rem;
 }
+
+.sample-drag {
+  position: absolute;
+  z-index: 1000000000000;
+}

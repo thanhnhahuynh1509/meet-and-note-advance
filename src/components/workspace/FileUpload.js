@@ -1,5 +1,5 @@
 function FileUpload() {
-  return <div></div>;
+  return <div>File Upload</div>;
 }
 
 export default FileUpload;

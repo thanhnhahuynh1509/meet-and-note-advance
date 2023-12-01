@@ -1,5 +1,5 @@
 function Todo() {
-  return <div></div>;
+  return <div>Todo</div>;
 }
 
 export default Todo;

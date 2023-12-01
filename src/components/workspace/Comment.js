@@ -1,5 +1,5 @@
 function Comment() {
-  return <div></div>;
+  return <div>Comment</div>;
 }
 
 export default Comment;

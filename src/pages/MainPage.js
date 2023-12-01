@@ -4,7 +4,7 @@ import Workspace from "../ui/main-page/Workspace";
 
 function MainPage() {
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div style={{ overflow: "hidden", position: "relative" }}>
       <Header />
       <div style={{ display: "flex" }}>
         <Toolbar />

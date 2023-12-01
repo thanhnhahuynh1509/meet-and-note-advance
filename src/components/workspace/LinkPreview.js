@@ -1,5 +1,5 @@
 function LinkPreview() {
-  return <div></div>;
+  return <div>Link Preview</div>;
 }
 
 export default LinkPreview;

@@ -1,7 +1,11 @@
 function RoomName() {
   return (
-    <div contentEditable suppressContentEditableWarning>
-      Room
+    <div
+      contentEditable
+      suppressContentEditableWarning
+      style={{ fontSize: "1.6rem", fontWeight: "600" }}
+    >
+      Home
     </div>
   );
 }
