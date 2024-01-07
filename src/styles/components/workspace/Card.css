@@ -1,10 +1,11 @@
 .card {
     overflow: hidden;
     border-radius: .3rem;
-    padding: 1.4rem 2.4rem;
+    padding: 2.4rem 3.4rem;
     border: 1px solid #bbbbbb;
     display: flex;
     align-items: center;
+    background-color: #fff;
 }
 
 .card-content {

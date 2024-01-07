@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { socket } from "../../socket/socket";
 
 const STEP_INCREASE = 200;
 
@@ -33,6 +34,10 @@ const workspaceSlice = createSlice({
         content: "Second Note",
       },
     ],
+    room: undefined,
+    parent: {
+      title: "Home",
+    },
   },
 
   reducers: {
@@ -43,6 +48,27 @@ const workspaceSlice = createSlice({
       };
     },
 
+    setRoom: (state, action) => {
+      return {
+        ...state,
+        room: action.payload,
+      };
+    },
+
+    setParent: (state, action) => {
+      return {
+        ...state,
+        parent: action.payload,
+      };
+    },
+
+    loadComponents: (state, action) => {
+      return {
+        ...state,
+        components: action.payload,
+      };
+    },
+
     addComponent: (state, { payload }) => {
       const duplicateComponent = state.components.find(
         (c) => c.id === payload?.id
@@ -50,7 +76,14 @@ const workspaceSlice = createSlice({
       if (duplicateComponent) {
         return;
       }
+      payload.parent = state.room;
       state.components.push(payload);
+      if (!payload.isEmitted) {
+        socket.emit("create-component", {
+          component: payload,
+          room: state.room,
+        });
+      }
     },
 
     updateComponent: (state, action) => {
@@ -58,13 +91,37 @@ const workspaceSlice = createSlice({
         ...state,
         components: state.components.map((component) => {
           if (component.id === action.payload.id) {
-            return {
+            const updatedData = {
               ...component,
               ...action.payload,
             };
+            if (!action.payload.isEmitted) {
+              socket.emit("update-component", {
+                component: updatedData,
+                room: state.room,
+              });
+            }
+            delete updatedData.isEmitted;
+            return updatedData;
           }
           return component;
         }),
+      };
+    },
+
+    deleteComponent: (state, action) => {
+      if (!action.payload.isEmitted) {
+        socket.emit("delete-component", {
+          component: action.payload,
+          room: state.room,
+        });
+      }
+      const components = state.components.filter(
+        (component) => component.id !== action.payload.id
+      );
+      return {
+        ...state,
+        components: components,
       };
     },
   },
@@ -92,8 +149,15 @@ const workspaceSlice = createSlice({
   },
 });
 
-export const { initSize, updateComponent, addComponent } =
-  workspaceSlice.actions;
+export const {
+  initSize,
+  updateComponent,
+  addComponent,
+  deleteComponent,
+  setRoom,
+  setParent,
+  loadComponents,
+} = workspaceSlice.actions;
 export const workspaceState = (state) => state.workspace;
 
 export default workspaceSlice.reducer;

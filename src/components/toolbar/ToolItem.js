@@ -27,6 +27,7 @@ function ToolItem({ icon, label, defaultComponent }) {
       if (!component) return;
       return {
         ...component,
+        label: label,
         x: e.clientX,
         y: e.clientY,
       };

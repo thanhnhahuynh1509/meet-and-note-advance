@@ -1,11 +1,11 @@
+import { useSelector } from "react-redux";
+import { workspaceState } from "../../common/store";
+
 function RoomName() {
+  const wpState = useSelector(workspaceState);
   return (
-    <div
-      contentEditable
-      suppressContentEditableWarning
-      style={{ fontSize: "1.6rem", fontWeight: "600" }}
-    >
-      Home
+    <div style={{ fontSize: "1.6rem", fontWeight: "600" }}>
+      {wpState?.parent?.title}
     </div>
   );
 }

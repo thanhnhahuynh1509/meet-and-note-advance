@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import "../../styles/components/utils/DraggableComponent.css";
 
@@ -16,6 +16,11 @@ function DraggableComponent({
 }) {
   const [x, setX] = useState(posX);
   const [y, setY] = useState(posY);
+
+  useEffect(() => {
+    setX(posX);
+    setY(posY);
+  }, [posX, posY]);
 
   return (
     <Draggable

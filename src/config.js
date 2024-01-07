@@ -1,10 +1,9 @@
 import {
   MdOutlineDoorBack,
   MdOutlineInsertLink,
-  MdOutlineModeComment,
   MdOutlineNoteAlt,
+  MdFileUpload,
 } from "react-icons/md";
-import { RiTodoLine } from "react-icons/ri";
 
 export const TOOL_ITEMS = [
   {
@@ -32,15 +31,15 @@ export const TOOL_ITEMS = [
     },
   },
   {
-    label: "Todo",
-    icon: <RiTodoLine size={"2.4rem"} color="#666" />,
+    label: "File",
+    icon: <MdFileUpload size={"2.4rem"} color="#666" />,
     defaultComponent: {
-      width: 300,
-      height: 70,
+      width: 36,
+      height: 36,
       borderColorTop: false,
       backgroundColor: "#fff",
       content: "",
-      type: "Todo",
+      type: "File",
     },
   },
   {
@@ -48,24 +47,36 @@ export const TOOL_ITEMS = [
     label: "Room",
     icon: <MdOutlineDoorBack size={"2.4rem"} color="#666" />,
     defaultComponent: {
-      width: 100,
-      height: 50,
+      width: 36,
+      height: 36,
       borderColorTop: false,
       backgroundColor: "#fff",
       content: "",
+      title: "New Room",
       type: "Room",
     },
   },
-  {
-    label: "Comment",
-    icon: <MdOutlineModeComment size={"2.4rem"} color="#666" />,
-    defaultComponent: {
-      width: 100,
-      height: 50,
-      borderColorTop: false,
-      backgroundColor: "#fff",
-      content: "",
-      type: "Comment",
-    },
-  },
 ];
+
+export const renderIconFile = (fileType) => {
+  if (fileType.startsWith("text/xml")) {
+    return "https://cdn-icons-png.flaticon.com/512/9034/9034293.png";
+  } else if (fileType.includes("word")) {
+    return "https://cdn-icons-png.flaticon.com/512/4726/4726038.png";
+  } else if (fileType.includes("pdf")) {
+    return "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+  } else if (fileType.includes("application/json")) {
+    return "https://cdn-icons-png.flaticon.com/512/136/136525.png";
+  } else if (
+    fileType.includes("powerpoint") ||
+    fileType.includes("presentation")
+  ) {
+    return "https://cdn-icons-png.flaticon.com/512/4726/4726014.png";
+  } else if (fileType.includes("excel") || fileType.includes("sheet")) {
+    return "https://cdn-icons-png.flaticon.com/512/2504/2504768.png";
+  } else {
+    return "https://cdn-icons-png.flaticon.com/512/607/607674.png";
+  }
+};
+
+export const SERVER_URL = "http://localhost:3001";

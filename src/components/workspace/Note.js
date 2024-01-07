@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../../styles/components/workspace/Note.css";
-import ResizableCard from "./ResizeableCard";
+import ResizableCardNote from "../utils/ResizableCardNote";
 
-function Note({ component, children }) {
-  return <ResizableCard component={component}>{children}</ResizableCard>;
+function Note({ component }) {
+  return (
+    <ResizableCardNote component={component}>
+      {component.content}
+    </ResizableCardNote>
+  );
 }
 
 export default Note;

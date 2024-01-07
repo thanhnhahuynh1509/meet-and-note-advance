@@ -1,0 +1,17 @@
+.card-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #fff;
+    border-radius: .4rem;
+    border: .1rem solid #ccc;
+    min-width: 500px;
+    min-height: 300px;
+    padding: 1rem 2rem
+}
+
+.card-form-title {
+    margin-top: 2rem;
+    font-size: 2.4rem;
+    color: #686868;
+}

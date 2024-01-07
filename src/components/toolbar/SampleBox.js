@@ -11,7 +11,7 @@ function SampleBox({ component }) {
     >
       <div className="card" style={{ backgroundColor: "#fff" }}>
         <div style={{ zIndex: 1000000, fontSize: "1.6rem" }}>
-          {component.type}
+          {component.label}
         </div>
       </div>
     </Draggable>
