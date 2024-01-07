@@ -1,7 +1,9 @@
 import { io } from "socket.io-client";
 import { SERVER_URL } from "../config";
 import {
+  addChat,
   addComponent,
+  deleteChat,
   deleteComponent,
   setParent,
   updateComponent,
@@ -51,6 +53,27 @@ export const subscribeDeleteComponent = (dispatch) => {
     }
     component.isEmitted = true;
     dispatch(deleteComponent(component));
+  });
+};
+
+export const subscribeCreateChat = (dispatch) => {
+  socket.on("create-chat", ({ id, chat }) => {
+    if (id === socket.id) {
+      return;
+    }
+
+    chat.isEmitted = true;
+    dispatch(addChat(chat));
+  });
+};
+
+export const subscribeDeleteChat = (dispatch) => {
+  socket.on("delete-chat", ({ id, chat }) => {
+    if (id === socket.id) {
+      return;
+    }
+    chat.isEmitted = true;
+    dispatch(deleteChat(chat));
   });
 };
 

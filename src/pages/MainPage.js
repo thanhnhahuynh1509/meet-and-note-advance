@@ -15,7 +15,9 @@ import {
 } from "../common/store";
 import {
   join,
+  subscribeCreateChat,
   subscribeCreateComponent,
+  subscribeDeleteChat,
   subscribeDeleteComponent,
   subscribeUpdateComponent,
 } from "../socket/socket";
@@ -55,6 +57,8 @@ function MainPage() {
         subscribeCreateComponent(dispatch);
         subscribeUpdateComponent(dispatch);
         subscribeDeleteComponent(dispatch);
+        subscribeCreateChat(dispatch);
+        subscribeDeleteChat(dispatch);
       }
     }
 

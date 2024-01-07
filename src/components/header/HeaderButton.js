@@ -1,11 +1,21 @@
 import { JitsiMeeting } from "@jitsi/react-sdk";
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  IconButton,
+} from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { userState, workspaceState } from "../../common/store";
+import ChatForm from "../utils/ChatForm";
+import { MdChatBubbleOutline, MdClose, MdPersonalVideo } from "react-icons/md";
+import { FiMaximize2, FiMinimize2 } from "react-icons/fi";
 
 function HeaderButton() {
   const [open, setOpen] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const { parent } = useSelector(workspaceState);
   const user = useSelector(userState);
   const [isMinimize, setIsMinimize] = useState(false);
@@ -20,13 +30,21 @@ function HeaderButton() {
 
   return (
     <>
-      <Button
-        style={{ fontSize: "1.4rem" }}
-        variant="outlined"
-        onClick={handleClickOpen}
-      >
-        Call Video
-      </Button>
+      <div style={{ display: "flex", gap: "1rem" }}>
+        <IconButton
+          onClick={() => {
+            setOpenChat(true);
+          }}
+          aria-label="send"
+          size="large"
+        >
+          <MdChatBubbleOutline size={24} color="#4a4a4a" />
+        </IconButton>
+
+        <IconButton onClick={handleClickOpen} aria-label="send" size="large">
+          <MdPersonalVideo size={24} color="#4a4a4a" />
+        </IconButton>
+      </div>
 
       <Dialog
         open={open}
@@ -58,22 +76,37 @@ function HeaderButton() {
           />
         </DialogContent>
         <DialogActions>
+          {!isMinimize && (
+            <IconButton onClick={handleClose} aria-label="send" size="large">
+              <MdClose size={24} color="#dc4941" />
+            </IconButton>
+          )}
           <Button
             style={{ fontSize: "1.6rem", pointerEvents: "auto" }}
             onClick={() => {
               setIsMinimize(!isMinimize);
             }}
           >
-            {isMinimize && <>Maximize</>}
-            {!isMinimize && <>Minimize</>}
+            {isMinimize && (
+              <IconButton size="large">
+                <FiMaximize2 size={24} color="#393939" />
+              </IconButton>
+            )}
+            {!isMinimize && (
+              <IconButton size="large">
+                <FiMinimize2 size={24} color="#393939" />
+              </IconButton>
+            )}
           </Button>
-          {!isMinimize && (
-            <Button style={{ fontSize: "1.6rem" }} onClick={handleClose}>
-              Close
-            </Button>
-          )}
         </DialogActions>
       </Dialog>
+
+      <ChatForm
+        open={openChat}
+        handleClose={() => {
+          setOpenChat(false);
+        }}
+      />
     </>
   );
 }
