@@ -31,8 +31,7 @@ export const subscribeCreateComponent = (dispatch) => {
     if (id === socket.id) {
       return;
     }
-    component.isEmitted = true;
-    dispatch(addComponent(component));
+    dispatch(addComponent({ ...component, isEmitted: true }));
   });
 };
 
@@ -41,8 +40,7 @@ export const subscribeUpdateComponent = (dispatch) => {
     if (id === socket.id) {
       return;
     }
-    component.isEmitted = true;
-    dispatch(updateComponent(component));
+    dispatch(updateComponent({ ...component, isEmitted: true }));
   });
 };
 
@@ -51,8 +49,7 @@ export const subscribeDeleteComponent = (dispatch) => {
     if (id === socket.id) {
       return;
     }
-    component.isEmitted = true;
-    dispatch(deleteComponent(component));
+    dispatch(deleteComponent({ ...component, isEmitted: true }));
   });
 };
 
@@ -63,7 +60,7 @@ export const subscribeCreateChat = (dispatch) => {
     }
 
     chat.isEmitted = true;
-    dispatch(addChat(chat));
+    dispatch(addChat({ ...chat, isEmitted: true }));
   });
 };
 
@@ -72,8 +69,7 @@ export const subscribeDeleteChat = (dispatch) => {
     if (id === socket.id) {
       return;
     }
-    chat.isEmitted = true;
-    dispatch(deleteChat(chat));
+    dispatch(deleteChat({ ...chat, isEmitted: true }));
   });
 };
 
